@@ -30,7 +30,6 @@ const display = () => {
     // Create boxes for each word and add click event listener
     for (let i = 0; i < letters.length; i++) {
         const word = letters[i];
-        console.log('for this word box will be created',word)
         const box = document.createElement("div");
         box.className = "box";
         box.innerText = word;
@@ -61,7 +60,7 @@ const moveSelected = (direction) => {
    // Select items based on the direction
    if (direction === "forward") {
        const boxes = displayBox.getElementsByClassName("box");
-       console.log('boxes', boxes)
+       
        for (let i = 0; i < boxes.length; i++) {
            const box = boxes[i];
            if (box.classList.contains("selected")) {
