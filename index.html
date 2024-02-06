@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>Document</title>
+</head>
+<body>
+    <div class="container">
+        <!-- Input  -->
+        <h1>Input your text</h1>
+        <input type="text" id="inputField" placeholder="Enter text">
+        <button onclick="display()">Submit</button>
+        <!-- display -->
+        <div id="display">
+            <div class="box" id="displayBox"></div>
+            <div class="btn">
+                
+                <button onclick="moveSelected('forward')" class="ic" id="forward-btn">&gt;&gt;</button>
+                <button onclick="moveSelected('backward')" class="ic" id="backward-btn">&lt;&lt;</button>
+    
+            </div>
+             
+            <div class="box" id="selectedBox"></div>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
