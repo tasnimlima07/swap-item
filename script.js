@@ -6,7 +6,6 @@ const display = () => {
     while (selectedBox.firstChild) {
         selectedBox.removeChild(selectedBox.firstChild);
     }
-
     // Clear the letters array
     letters.length = 0;
 
@@ -28,46 +27,72 @@ const display = () => {
         displayBox.removeChild(displayBox.firstChild);
     }
 
-    // Create boxes for each letter and add click event listener
-    letters.forEach((word, index) => {
+    // Create boxes for each word and add click event listener
+    for (let i = 0; i < letters.length; i++) {
+        const word = letters[i];
+        console.log('for this word box will be created',word)
         const box = document.createElement("div");
         box.className = "box";
         box.innerText = word;
-
+    
         box.addEventListener("click", function () {
             // Toggle the "selected" class on click
             box.classList.toggle("selected");
         });
-        console.log("Box clicked and moved:", word);
+    
         displayBox.appendChild(box);
-    });
+    }
 
     // Clear the inputField
     inputField.value = "";
+
 };
+
 
 // Function to move selected items forward or backward
 const moveSelected = (direction) => {
     const displayBox = document.getElementById("displayBox");
     const selectedBox = document.getElementById("selectedBox");
+    
 
-    // Get all selected items based on the direction
-    const selectedItems = (direction === "forward") ?
-        Array.from(displayBox.getElementsByClassName("box")).filter(box => box.classList.contains("selected")) :
-        Array.from(selectedBox.getElementsByClassName("box")).filter(box => box.classList.contains("selected"));
+   // Initialize an empty array to store selected items
+   const selectedItems = [];
 
-    // Move selected items based on the direction
-    selectedItems.forEach(box => {
-        if (direction === "forward") {
-            selectedBox.appendChild(box);
-        } else if (direction === "backward") {
-            displayBox.appendChild(box);
-        }
-        // Remove the "selected" class after moving
-        box.classList.remove("selected");
-    });
+   // Select items based on the direction
+   if (direction === "forward") {
+       const boxes = displayBox.getElementsByClassName("box");
+       console.log('boxes', boxes)
+       for (let i = 0; i < boxes.length; i++) {
+           const box = boxes[i];
+           if (box.classList.contains("selected")) {
+               selectedItems.push(box);
+           }
+           
+       }
+   } else if (direction === "backward") {
+       const boxes = selectedBox.getElementsByClassName("box");
+       for (let i = 0; i < boxes.length; i++) {
+           const box = boxes[i];
+           if (box.classList.contains("selected")) {
+               selectedItems.push(box);
+           }
+       }
+   }
+      
+// Move selected items based on the direction
+for (let i = 0; i < selectedItems.length; i++) {
+    const box = selectedItems[i];
+    if (direction === "forward") {
+        selectedBox.appendChild(box);
+    } else if (direction === "backward") {
+        displayBox.appendChild(box);
+    }
+    // Remove the "selected" class after moving
+    box.classList.remove("selected");
+}
+ 
 };
 
 
 // Call the display function on window load
-window.addEventListener('load', display);
+window.addEventListener('load', moveSelected);
